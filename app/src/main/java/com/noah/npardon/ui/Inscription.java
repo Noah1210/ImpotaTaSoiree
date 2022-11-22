@@ -1,4 +1,4 @@
-package com.noah.npardon;
+package com.noah.npardon.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,11 +7,11 @@ import android.os.Bundle;
 
 import com.example.npardon.R;
 
-public class MainActivity extends Activity {
+public class Inscription extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_inscription);
     }
 }

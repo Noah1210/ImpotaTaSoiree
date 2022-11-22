@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.noah.npardon.Connexion">
+    tools:context="com.noah.npardon.ui.Connexion">
 
 
     <TextView
-        android:id="@+id/tvEtudiants"
+        android:id="@+id/tvConnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -29,10 +29,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEtudiants" />
+        app:layout_constraintTop_toBottomOf="@+id/tvConnexion" />
 
     <EditText
-        android:id="@+id/txName"
+        android:id="@+id/txLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -43,7 +43,7 @@
         android:drawableLeft="@drawable/aperson"
         android:drawablePadding="10dp"
         android:ems="10"
-        android:hint="@string/txName"
+        android:hint="@string/txLogin"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:paddingLeft="20dp"
@@ -75,9 +75,51 @@
         android:paddingBottom="10dp"
         android:textColor="@color/pink1"
         android:textColorHint="@color/pink1"
-        app:layout_constraintEnd_toEndOf="@+id/txName"
+        app:layout_constraintEnd_toEndOf="@+id/txLogin"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txName"
-        app:layout_constraintTop_toBottomOf="@+id/txName" />
+        app:layout_constraintStart_toStartOf="@+id/txLogin"
+        app:layout_constraintTop_toBottomOf="@+id/txLogin" />
+
+    <Button
+        android:id="@+id/bConnexion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_background"
+        android:text="@string/bConnexion"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/txPassword"
+        app:layout_constraintStart_toStartOf="@+id/txPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txPassword" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="@+id/bConnexion"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/bConnexion"
+        app:layout_constraintTop_toBottomOf="@+id/bConnexion">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/txInscription"
+            android:textColor="@color/pink3" />
+
+        <TextView
+            android:id="@+id/txClickInscription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="8dp"
+            android:text="@string/txClickInscription"
+            android:textColor="@color/pink2" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,5 +2,15 @@
     <string name="app_name">ImposeTaSoiree</string>
     <string name="nameConnexion">Connexion</string>
     <string name="txName">Name</string>
+    <string name="txLastName">LastName</string>
+    <string name="txLogin">Login</string>
     <string name="txPassword">Password</string>
+    <string name="txDDN">Birth date</string>
+    <string name="txMail">Mail</string>
+    <string name="txVerifPassword">Confirm Password</string>
+    <string name="bConnexion">Connexion</string>
+    <string name="bAnnuler">Annuler</string>
+    <string name="bInscription">Inscription</string>
+    <string name="txInscription">Pas de compte ?</string>
+    <string name="txClickInscription">S\'inscrire</string>
 </resources>
