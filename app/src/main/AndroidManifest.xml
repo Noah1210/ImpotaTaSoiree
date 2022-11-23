@@ -20,28 +20,31 @@
         android:theme="@style/appStyle"
         tools:targetApi="31">
         <activity
-            android:name="com.noah.npardon.ui.Inscription"
+            android:name="com.noah.npardon.ui.Account"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.noah.npardon.ui.Connexion"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+            android:name="com.noah.npardon.ui.Soiree"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="com.noah.npardon.ui.MainActivity"
-            android:exported="true">
+            android:name="com.noah.npardon.ui.Inscription"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.noah.npardon.ui.Connexion"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

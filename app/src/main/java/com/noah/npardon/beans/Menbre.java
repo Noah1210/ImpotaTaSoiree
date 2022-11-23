@@ -1,6 +1,8 @@
 package com.noah.npardon.beans;
 
-public class Menbre {
+import java.io.Serializable;
+
+public class Menbre implements Serializable {
     private String login;
     private String nom;
     private String prenom;
@@ -40,4 +42,5 @@ public class Menbre {
     public String getPassword() {
         return password;
     }
+
 }

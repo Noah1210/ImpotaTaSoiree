@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ImposeTaSoiree</string>
     <string name="nameConnexion">Connexion</string>
-    <string name="txName">Name</string>
+    <string name="txName">First name</string>
     <string name="txLastName">LastName</string>
     <string name="txLogin">Login</string>
     <string name="txPassword">Password</string>

@@ -7,12 +7,11 @@ import android.os.Bundle;
 
 import com.example.npardon.R;
 
-public class MainActivity extends Activity {
+public class Account extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_account);
     }
-
 }

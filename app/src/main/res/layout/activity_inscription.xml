@@ -119,34 +119,10 @@
         app:layout_constraintTop_toBottomOf="@+id/txPassword" />
 
     <EditText
-        android:id="@+id/txLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:autofillHints=""
-        android:background="@drawable/input_background"
-        android:drawableLeft="@drawable/aperson"
-        android:drawablePadding="10dp"
-        android:ems="10"
-        android:hint="@string/txName"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="@color/pink1"
-        android:textColorHint="@color/pink1"
-        app:layout_constraintEnd_toEndOf="@+id/txVerifPassword"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txVerifPassword"
-        app:layout_constraintTop_toBottomOf="@+id/txVerifPassword" />
-
-    <EditText
         android:id="@+id/txLastName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:autofillHints=""
         android:background="@drawable/input_background"
         android:drawableLeft="@drawable/aperson"
@@ -161,10 +137,34 @@
         android:paddingBottom="10dp"
         android:textColor="@color/pink1"
         android:textColorHint="@color/pink1"
-        app:layout_constraintEnd_toEndOf="@+id/txLogin"
+        app:layout_constraintEnd_toEndOf="@+id/txVerifPassword"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txLogin"
-        app:layout_constraintTop_toBottomOf="@+id/txLogin" />
+        app:layout_constraintStart_toStartOf="@+id/txVerifPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txVerifPassword" />
+
+    <EditText
+        android:id="@+id/txFirstName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints=""
+        android:background="@drawable/input_background"
+        android:drawableLeft="@drawable/aperson"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:hint="@string/txName"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/pink1"
+        android:textColorHint="@color/pink1"
+        app:layout_constraintEnd_toEndOf="@+id/txLastName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txLastName"
+        app:layout_constraintTop_toBottomOf="@+id/txLastName" />
 
     <EditText
         android:id="@+id/txDDN"
@@ -185,10 +185,10 @@
         android:paddingBottom="10dp"
         android:textColor="@color/pink1"
         android:textColorHint="@color/pink1"
-        app:layout_constraintEnd_toEndOf="@+id/txLastName"
+        app:layout_constraintEnd_toEndOf="@+id/txFirstName"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/txLastName"
-        app:layout_constraintTop_toBottomOf="@+id/txLastName" />
+        app:layout_constraintStart_toStartOf="@+id/txFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/txFirstName" />
 
     <EditText
         android:id="@+id/txMail"

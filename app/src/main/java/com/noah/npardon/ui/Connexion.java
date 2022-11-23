@@ -3,15 +3,24 @@ package com.noah.npardon.ui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.npardon.R;
+import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.daos.DaoMenbre;
+import com.noah.npardon.daos.DelegateAsyncTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 
 public class Connexion extends Activity {
     private TextView inputLogin, inputPassword;
@@ -49,7 +58,21 @@ public class Connexion extends Activity {
         } else if (password.isEmpty()) {
             showError(inputLogin, "Please enter a password");
         } else {
-            DaoMenbre.getInstance().getConnexion(login, password);
+            DaoMenbre.getInstance().getConnexion(login, password, new DelegateAsyncTask() {
+                @Override
+                public void whenWSIsTerminated(Object result) {
+                    Menbre me = (Menbre) result;
+                        if (me != null) {
+                            Toast.makeText(getApplicationContext(), "Bonjour " + me.getPrenom(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), Soiree.class);
+                            intent.putExtra("me", me);
+                            finish();
+                            Connexion.this.startActivity(intent);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Vous n'avez pas pu vous connecter", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+            });
 
         }
     }
