@@ -1,11 +1,16 @@
 package com.noah.npardon.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,15 +19,17 @@ import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
+import java.util.Calendar;
+
 public class Inscription extends Activity {
 
     private TextView inputLogin, inputPassword, inputVerifPassword, inputLastName, inputFirstName, inputDDN, inputMail;
+    private DatePickerDialog datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inscription);
-        DaoMenbre.init(this);
 
         inputLogin = findViewById(R.id.txLogin);
         inputPassword = findViewById(R.id.txPassword);
@@ -35,6 +42,31 @@ public class Inscription extends Activity {
         ((Button) findViewById(R.id.bInscription)).setOnClickListener(v -> {
             OnClickConnexion();
         });
+
+        ((Button) findViewById(R.id.bAnnuler)).setOnClickListener(v -> {
+            finish();
+        });
+
+        inputDDN.setOnClickListener(v -> {
+            showDatePickerDialog(v);
+        });
+    }
+
+    private void showDatePickerDialog(View v) {
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                i1 = i1 + 1;
+                String date = i+"-"+i1+"-"+i2;
+                inputDDN.setText(date);
+            }
+        };
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        datePicker = new DatePickerDialog(this, AlertDialog.THEME_HOLO_DARK, dateSetListener, year, month, day);
+        datePicker.show();
     }
 
     private void OnClickConnexion() {

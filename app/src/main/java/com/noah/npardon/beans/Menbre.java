@@ -19,6 +19,14 @@ public class Menbre implements Serializable {
         this.password = password;
     }
 
+    public Menbre(String login, String nom, String prenom, String ddn, String mail) {
+        this.login = login;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.ddn = ddn;
+        this.mail = mail;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -41,6 +49,11 @@ public class Menbre implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return prenom + " "+ nom + " (" + login + ")";
     }
 
 }
