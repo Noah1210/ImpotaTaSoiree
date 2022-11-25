@@ -174,6 +174,36 @@ public class DaoMenbre {
         }
         delegate.whenWSIsTerminated(res);
     }
+
+    public void getMembreByLogin(String login, DelegateAsyncTask delegate) {
+        String url = "requete=getMembreByLogin&login=" + login;
+        WSConnexionHTTPS wsConnexionHTTPS = new WSConnexionHTTPS() {
+            @Override
+            protected void onPostExecute(String s) {
+                try {
+                    traiterRetourGetMembreByLogin(s, delegate);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        wsConnexionHTTPS.execute(url);
+    }
+
+    private void traiterRetourGetMembreByLogin(String s, DelegateAsyncTask delegate) throws JSONException {
+        JSONObject jo = new JSONObject(s);
+        Menbre me = null;
+        if (jo.getBoolean("success")) {
+            JSONObject response = jo.getJSONObject("response");
+            String login = response.getString("login");
+            String nom = response.getString("nom");
+            String prenom = response.getString("prenom");
+            String ddn = response.getString("ddn");
+            String mail = response.getString("mail");
+            me = new Menbre(login, nom, prenom, ddn, mail, "");
+        }
+        delegate.whenWSIsTerminated(me);
+    }
 }
 
 

@@ -62,9 +62,10 @@ public class Account extends Activity {
                         boolean res = (boolean) result;
                         if (res == true) {
                             Toast.makeText(getApplicationContext(), "Le compte "+Connexion.menbreConnecte.getLogin()+" a bien été supprimer", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Connexion.class);
+                            Intent returnIntent = new Intent(getApplicationContext(), Connexion.class);
+                            setResult(4,returnIntent);
                             finish();
-                            Account.this.startActivity(intent);
+                            startActivity(returnIntent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Votre compte n'a pas été supprimer", Toast.LENGTH_SHORT).show();
                         }

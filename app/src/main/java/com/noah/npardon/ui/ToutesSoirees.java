@@ -37,18 +37,16 @@ public class ToutesSoirees extends Activity {
             OnClickLaunchAdd();
         });
 
+        ((Button) findViewById(R.id.bMap)).setOnClickListener(v -> {
+            OnClickLaunchMap();
+        });
+
         lv.setOnItemClickListener((adapterView, view, i, l) -> {
             Soiree so = (Soiree) adapterView.getAdapter().getItem(i);
             clickLV(view, so, i);
         });
 
-        DaoSoiree.getInstance().getSoirees(new DelegateAsyncTask() {
-            @Override
-            public void whenWSIsTerminated(Object result) {
-                soireeArrayAdapter.notifyDataSetChanged();
-            }
-        });
-
+        getSoiree();
 
         Menbre me = (Menbre) this.getIntent().getSerializableExtra("me");
         ((TextView)findViewById(R.id.tvMyAcc)).setText(me.getPrenom());
@@ -72,6 +70,11 @@ public class ToutesSoirees extends Activity {
         startActivityForResult(intent, 2);
     }
 
+    private void OnClickLaunchMap() {
+        Intent intent = new Intent(getApplicationContext(), ToutesSoireeMap.class);
+        startActivityForResult(intent, 2);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -80,13 +83,21 @@ public class ToutesSoirees extends Activity {
             if (resultCode == 3){
                 Soiree so = (Soiree) data.getSerializableExtra("so");
                 soirees.add(so);
-                soireeArrayAdapter.notifyDataSetChanged();
+                getSoiree();
             }else if (resultCode == 4){
                 int i = data.getIntExtra("index", 0);
                 soirees.remove(i);
-                soireeArrayAdapter.notifyDataSetChanged();
+                getSoiree();
             }else{
             }
         }
+    }
+    private void getSoiree(){
+        DaoSoiree.getInstance().getSoirees(new DelegateAsyncTask() {
+            @Override
+            public void whenWSIsTerminated(Object result) {
+                soireeArrayAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }

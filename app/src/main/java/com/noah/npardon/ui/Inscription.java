@@ -19,6 +19,7 @@ import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Inscription extends Activity {
@@ -59,6 +60,7 @@ public class Inscription extends Activity {
                 i1 = i1 + 1;
                 String date = i+"-"+i1+"-"+i2;
                 inputDDN.setText(date);
+                //SimpleDateFormat
             }
         };
         Calendar cal = Calendar.getInstance();
@@ -101,9 +103,11 @@ public class Inscription extends Activity {
                     boolean res = (boolean) result;
                     if (res == true) {
                         Toast.makeText(getApplicationContext(), "Bonjour "+me.getPrenom()+". Vous aller recevoir un mail de confirmation ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), Connexion.class);
+                        Intent returnIntent = new Intent();
+                        returnIntent.putExtra("me", me);
+                        /*TODO  arreter la connerie*/
+                        setResult(3,returnIntent);
                         finish();
-                        Inscription.this.startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Vous n'avez pas pu vous inscrire", Toast.LENGTH_SHORT).show();
                     }
@@ -116,4 +120,6 @@ public class Inscription extends Activity {
         input.setError(s);
         input.requestFocus();
     }
+
+
 }

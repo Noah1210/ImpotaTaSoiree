@@ -27,6 +27,7 @@ public class InfoSoiree extends Activity {
     private TextView showSoireeInfo, showSoireeLib;
     private Button delButton, subButton ;
     private Soiree so = null;
+    private Menbre mOwn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,15 @@ public class InfoSoiree extends Activity {
         ((ListView) findViewById(R.id.lvSoiree)).setAdapter(menbreArrayAdapter);
 
         so = (Soiree) this.getIntent().getSerializableExtra("so");
-        showSoireeLib.setText(so.getLibelleCourt());
-        showSoireeInfo.setText(so.getDescriptif() + "\n\nLe " + so.getDateDebut() + " à " + so.getHeureDebut() + "\n\nSoirée de " + so.getLogin());
-        getMenbres();
+        DaoMenbre.getInstance().getMembreByLogin(so.getLogin(), new DelegateAsyncTask() {
+            @Override
+            public void whenWSIsTerminated(Object result) {
+                mOwn = (Menbre) result;
+                showSoireeLib.setText(so.getLibelleCourt());
+                showSoireeInfo.setText(so.getDescriptif() + "\n\nLe " + so.getDateDebut() + " à " + so.getHeureDebut() + "\n\nSoirée de " + mOwn.getPrenom() + " " + mOwn.getNom());
+                getMenbres();
+            }
+        });
 
         if(!Connexion.menbreConnecte.getLogin().equals(so.getLogin())){
             delButton.setVisibility(View.GONE);
@@ -62,6 +69,12 @@ public class InfoSoiree extends Activity {
 
         ((Button) findViewById(R.id.bAnnuler)).setOnClickListener(v -> {
             finish();
+        });
+
+        ((Button) findViewById(R.id.bLocalise)).setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), selectedSoireeMap.class);
+            intent.putExtra("so", so);
+            startActivity(intent);
         });
     }
 
@@ -102,9 +115,9 @@ public class InfoSoiree extends Activity {
             public void whenWSIsTerminated(Object result) {
                 boolean res = (boolean) result;
                 if (res == true) {
-                    menbres.add(Connexion.menbreConnecte);
-                    menbreArrayAdapter.notifyDataSetChanged();
+                    getMenbres();
                     Toast.makeText(getApplicationContext(), "Vous êtes maintenant inscrit à la soirée", Toast.LENGTH_SHORT).show();
+                    subButton.setText("Me désinscrire");
                 } else {
                     Toast.makeText(getApplicationContext(), "Vous n'avez pas pu vous inscrire", Toast.LENGTH_SHORT).show();
                 }
@@ -120,6 +133,7 @@ public class InfoSoiree extends Activity {
                 if (res == true) {
                     getMenbres();
                     Toast.makeText(getApplicationContext(), "Vous n'êtes plus inscrit", Toast.LENGTH_SHORT).show();
+                    subButton.setText("M'inscrire");
                 } else {
                     Toast.makeText(getApplicationContext(), "Vous n'avez pas pu vous désinscrire", Toast.LENGTH_SHORT).show();
                 }
