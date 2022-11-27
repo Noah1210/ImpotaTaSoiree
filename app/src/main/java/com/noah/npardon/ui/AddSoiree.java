@@ -1,10 +1,9 @@
 package com.noah.npardon.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,21 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.npardon.R;
-import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.beans.Soiree;
-import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DaoSoiree;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 public class AddSoiree extends Activity {
 
     private TextView inputLib, inputDesc, inputDate, inputTime, inputAddress;
     private DatePickerDialog datePicker;
+    private int hour, min ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,24 @@ public class AddSoiree extends Activity {
             showDatePickerDialog(v);
         });
 
+        inputTime.setOnClickListener(v -> {
+            showTimePickerDialog(v);
+        });
+
+    }
+
+    private void showTimePickerDialog(View v) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMin) {
+                hour = selectedHour;
+                min = selectedMin;
+                inputTime.setText(String.format(Locale.getDefault(), "%02d:%02d:%02d", hour, min, 00));
+            }
+        };
+        int style = AlertDialog.THEME_HOLO_DARK;
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, style, onTimeSetListener, hour, min, true);
+        timePickerDialog.show();
     }
 
     private void showDatePickerDialog(View v) {

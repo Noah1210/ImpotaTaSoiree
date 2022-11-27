@@ -1,7 +1,5 @@
 package com.noah.npardon.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,13 +17,17 @@ import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DaoSoiree;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class InfoSoiree extends Activity {
     private ArrayAdapter<Menbre> menbreArrayAdapter;
     private List<Menbre> menbres;
     private TextView showSoireeInfo, showSoireeLib;
-    private Button delButton, subButton ;
+    private Button delButton, subButton;
     private Soiree so = null;
     private Menbre mOwn = null;
 
@@ -48,24 +50,39 @@ public class InfoSoiree extends Activity {
             @Override
             public void whenWSIsTerminated(Object result) {
                 mOwn = (Menbre) result;
-                showSoireeLib.setText(so.getLibelleCourt());
-                showSoireeInfo.setText(so.getDescriptif() + "\n\nLe " + so.getDateDebut() + " à " + so.getHeureDebut() + "\n\nSoirée de " + mOwn.getPrenom() + " " + mOwn.getNom());
+                try {
+                    addInfoSoiree(mOwn);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 getMenbres();
             }
         });
 
-        if(!Connexion.menbreConnecte.getLogin().equals(so.getLogin())){
+        if (!Connexion.menbreConnecte.getLogin().equals(so.getLogin())) {
             delButton.setVisibility(View.GONE);
             subButton.setOnClickListener(view -> {
                 OnClickSubButton();
             });
-        }else{
+        } else {
             subButton.setVisibility(View.GONE);
             delButton.setOnClickListener(view -> {
                 int i = (int) this.getIntent().getSerializableExtra("index");
                 OnClickDelButton(i);
             });
         }
+
+        DaoSoiree.getInstance().verifInscription(so, new DelegateAsyncTask() {
+            @Override
+            public void whenWSIsTerminated(Object Firstresult) {
+                boolean firstRes = (boolean) Firstresult;
+                if (firstRes == true) {
+                    subButton.setText("Me désinscrire");
+                } else {
+                    subButton.setText("M'inscrire");
+                }
+            }
+        });
 
         ((Button) findViewById(R.id.bAnnuler)).setOnClickListener(v -> {
             finish();
@@ -78,6 +95,24 @@ public class InfoSoiree extends Activity {
         });
     }
 
+    private void addInfoSoiree(Menbre mOwn) throws ParseException {
+        showSoireeLib.setText(so.getLibelleCourt());
+
+        String soireeDate = so.getDateDebut();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        Date newDate = formatDate.parse(soireeDate);
+        formatDate = new SimpleDateFormat("d MMMM yyyy", Locale.FRANCE);
+        String date = formatDate.format(newDate);
+
+        String soireeHeure = so.getHeureDebut();
+        SimpleDateFormat formatHeure = new SimpleDateFormat("hh:mm:ss");
+        Date newHeure = formatHeure.parse(soireeHeure);
+        formatHeure = new SimpleDateFormat("HH:mm");
+        String heure = formatHeure.format(newHeure);
+
+        showSoireeInfo.setText(so.getDescriptif() + "\n\nLe " + date +" à " + heure + "\n\nSoirée de " + mOwn.getPrenom() + " " + mOwn.getNom());
+    }
+
     private void OnClickDelButton(int i) {
         DaoSoiree.getInstance().delSoiree(so, new DelegateAsyncTask() {
             @Override
@@ -87,7 +122,7 @@ public class InfoSoiree extends Activity {
                     Toast.makeText(getApplicationContext(), "Vous avez bien supprimer la soirée", Toast.LENGTH_SHORT).show();
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra("index", i);
-                    setResult(4,returnIntent);
+                    setResult(4, returnIntent);
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "La soirée n'a pas pu être supprimer", Toast.LENGTH_SHORT).show();
@@ -103,10 +138,11 @@ public class InfoSoiree extends Activity {
                 boolean firstRes = (boolean) Firstresult;
                 if (firstRes == true) {
                     desinscrire();
-                }else {
+                } else {
                     inscire();
                 }
-            }});
+            }
+        });
     }
 
     private void inscire() {
@@ -140,7 +176,8 @@ public class InfoSoiree extends Activity {
             }
         });
     }
-    private void getMenbres(){
+
+    private void getMenbres() {
         DaoMenbre.getInstance().getParticipants(so, new DelegateAsyncTask() {
             @Override
             public void whenWSIsTerminated(Object result) {

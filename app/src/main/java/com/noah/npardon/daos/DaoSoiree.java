@@ -1,10 +1,6 @@
 package com.noah.npardon.daos;
 
-import android.util.Log;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.beans.Soiree;
 import com.noah.npardon.net.WSConnexionHTTPS;
 
@@ -13,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DaoSoiree {

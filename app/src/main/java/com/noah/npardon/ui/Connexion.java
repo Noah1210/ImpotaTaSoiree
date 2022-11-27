@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.example.npardon.R;
 import com.noah.npardon.beans.Menbre;
-import com.noah.npardon.beans.Soiree;
 import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
@@ -26,10 +25,10 @@ public class Connexion extends Activity {
 
         inputLogin = findViewById(R.id.txLogin);
         inputPassword = findViewById(R.id.txPassword);
-
-        inputLogin.setText("noah.pardon");
-        inputPassword.setText("12345");
-
+        if(inputLogin.getText().toString().matches("")){
+            inputLogin.setText("noah.pardon");
+            inputPassword.setText("12345");
+        }
 
         btnInscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +50,7 @@ public class Connexion extends Activity {
         if (login.isEmpty()) {
             showError(inputLogin, "Please enter a login");
         } else if (password.isEmpty()) {
-            showError(inputLogin, "Please enter a password");
+            showError(inputPassword, "Please enter a password");
         } else {
             DaoMenbre.getInstance().getConnexion(login, password, new DelegateAsyncTask() {
                 @Override
@@ -88,8 +87,8 @@ public class Connexion extends Activity {
                 inputLogin.setText(me.getLogin());
                 inputPassword.setText(me.getPassword());
             } else if(resultCode == 4){
-                inputLogin.setText("");
-                inputPassword.setText("");
+                inputLogin.setText(".");
+                inputPassword.setText(".");
             }else{
 
             }

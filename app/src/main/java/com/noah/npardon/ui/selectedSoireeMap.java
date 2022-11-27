@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat;
 
 import com.example.npardon.R;
 import com.noah.npardon.beans.Soiree;
-import com.noah.npardon.daos.DaoSoiree;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -25,7 +24,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
@@ -49,22 +47,29 @@ public class selectedSoireeMap extends Activity {
         requestPermissionsIfNecessary(tabPerm);
         mapSoiree.setMultiTouchControls(true);
         Soiree so = (Soiree) getIntent().getSerializableExtra("so");
-        makeMarkers(so);
+        GeoPoint p = makeMarkers(so);
+        positionnerSurCentre(p);
 
         ((Button) findViewById(R.id.bRetour)).setOnClickListener(v -> {
             finish();
         });
         ((Button) findViewById(R.id.bNaviguer)).setOnClickListener(v -> {
-            //Uri location = Uri.parse("geo:"+so.getLatitude()+","+so.getLongitude()+"?z=14");
-            Uri location = Uri.parse("geo:37.422219,-122.08364?z=14");
+            Uri location = Uri.parse("google.navigation:q="+so.getLatitude()+","+so.getLongitude());
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+            mapIntent.setPackage("com.google.android.apps.maps");
             startActivity(mapIntent);
             Log.d("TAG", "noIdea: ");
         });
 
     }
 
-    private void makeMarkers(Soiree so) {
+    private void positionnerSurCentre(GeoPoint p) {
+        IMapController mapController = mapSoiree.getController();
+        mapController.setZoom(14.5);
+        mapController.setCenter(p);
+    }
+
+    private GeoPoint makeMarkers(Soiree so) {
         mapSoiree.getOverlays().clear();
         ArrayList<OverlayItem> items = new ArrayList<>();
         OverlayItem soirees;
@@ -84,6 +89,7 @@ public class selectedSoireeMap extends Activity {
         });
         ((ItemizedOverlayWithFocus<OverlayItem>) mOverlay).setFocusItemsOnTap(true);
         mapSoiree.getOverlays().add(mOverlay);
+        return new GeoPoint(so.getLatitude(), so.getLongitude());
     }
 
 

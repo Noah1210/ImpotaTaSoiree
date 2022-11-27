@@ -1,8 +1,5 @@
 package com.noah.npardon.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -19,7 +16,6 @@ import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.daos.DaoMenbre;
 import com.noah.npardon.daos.DelegateAsyncTask;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Inscription extends Activity {

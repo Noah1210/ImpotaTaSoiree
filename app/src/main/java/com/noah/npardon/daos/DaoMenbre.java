@@ -1,12 +1,9 @@
 package com.noah.npardon.daos;
 
-import android.content.Context;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.beans.Soiree;
 import com.noah.npardon.net.WSConnexionHTTPS;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
