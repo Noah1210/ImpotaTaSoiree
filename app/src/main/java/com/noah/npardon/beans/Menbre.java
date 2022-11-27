@@ -51,14 +51,6 @@ public class Menbre implements Serializable {
         return password;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
         return prenom + " "+ nom + " (" + login + ")";

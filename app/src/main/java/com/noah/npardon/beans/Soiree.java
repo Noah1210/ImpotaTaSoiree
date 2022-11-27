@@ -13,8 +13,6 @@ public class Soiree implements Serializable {
     private double longitude;
     private String login;
 
-    public Soiree(){}
-
     public Soiree(String id, String libelleCourt, String descriptif, String dateDebut, String heureDebut, double latitude, double longitude, String login) {
         this.id = id;
         this.libelleCourt = libelleCourt;
