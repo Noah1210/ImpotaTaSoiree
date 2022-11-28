@@ -16,7 +16,7 @@
         android:text="Add"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvSoiree" />
+        app:layout_constraintTop_toBottomOf="@+id/lay2" />
 
     <Button
         android:id="@+id/bMap"
@@ -28,7 +28,7 @@
         android:text="Map"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvSoiree" />
+        app:layout_constraintTop_toBottomOf="@+id/lay2" />
 
     <TextView
         android:id="@+id/tvInscription2"
@@ -43,16 +43,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/lvSoiree"
-        android:layout_width="414dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="24dp"
+    <include
+        android:id="@+id/lay2"
+        layout="@layout/activity_soiree_swipe"
+        android:layout_width="389dp"
+        android:layout_height="386dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInscription2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvInscription2"></include>
 
-    <ImageView
+    <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/ivAcc"
         android:layout_width="157dp"
         android:layout_height="145dp"
@@ -60,7 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvSoiree" />
+        app:layout_constraintTop_toBottomOf="@+id/lay2" />
 
     <TextView
         android:id="@+id/tvMyAcc"
@@ -79,3 +80,4 @@
         app:layout_constraintTop_toBottomOf="@+id/ivAcc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

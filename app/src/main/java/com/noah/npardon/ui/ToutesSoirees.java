@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.npardon.R;
 import com.noah.npardon.beans.Menbre;
 import com.noah.npardon.beans.Soiree;
@@ -56,6 +58,19 @@ public class ToutesSoirees extends Activity {
                 startActivity(new Intent(ToutesSoirees.this, Account.class));
             }
         });
+
+        SwipeRefreshLayout pullToRefresh = findViewById(R.id.lay2);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    private void refreshData() {
+        getSoiree();
     }
 
     private void clickLV(View view, Soiree so, int i) {
