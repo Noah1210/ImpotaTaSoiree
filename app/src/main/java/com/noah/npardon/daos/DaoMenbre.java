@@ -259,6 +259,12 @@ public class DaoMenbre {
         }
         delegate.whenWSIsTerminated(me);
     }
+
+    public void postPhoto(String photoB64) {
+        String url = "requete=uploadPhoto";
+        WSConnexionHTTPS wsConnexionHTTPS = new WSConnexionHTTPS();
+        wsConnexionHTTPS.execute(url,photoB64);
+    }
 }
 
 

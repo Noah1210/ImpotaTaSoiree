@@ -57,6 +57,7 @@
         </activity>
         <activity
             android:name="com.noah.npardon.ui.Account"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -92,8 +93,6 @@
                 android:value="" />
         </activity>
 
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
     </application>
 
 </manifest>
