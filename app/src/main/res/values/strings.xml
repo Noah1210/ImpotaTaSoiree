@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Impose Ta Soiree</string>
+    <string name="app_name">NPARDON Impose Ta Soiree</string>
     <string name="nameConnexion">Connexion</string>
     <string name="txName">First name</string>
     <string name="txLastName">LastName</string>
