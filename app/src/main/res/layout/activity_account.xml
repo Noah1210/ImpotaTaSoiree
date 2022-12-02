@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.noah.npardon.ui.Account">
 
+
+    <Button
+        android:id="@+id/bAnnuler"
+        android:layout_width="64dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/returnicon"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/bDeconnexion"
         android:layout_width="0dp"

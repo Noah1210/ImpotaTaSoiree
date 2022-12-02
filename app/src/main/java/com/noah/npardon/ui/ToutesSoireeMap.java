@@ -3,6 +3,7 @@ package com.noah.npardon.ui;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.example.npardon.R;
 import com.noah.npardon.beans.Soiree;
 import com.noah.npardon.daos.DaoSoiree;
+import com.noah.npardon.daos.DelegateAsyncTask;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -25,16 +27,21 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ToutesSoireeMap extends Activity {
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MapView map = null;
+    private List<Soiree> soirees;
+    private Soiree soireeSel;
+    private ArrayList<OverlayItem> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toutes_soiree_map);
 
+        soirees = DaoSoiree.getInstance().getLocalSoirees();
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         map = (MapView) findViewById(R.id.map);
@@ -58,13 +65,15 @@ public class ToutesSoireeMap extends Activity {
     }
 
     private GeoPoint positionnerSoirees() {
+        getSoiree();
+        items.clear();
         map.getOverlays().clear();
-        ArrayList<OverlayItem> items = new ArrayList<>();
-        OverlayItem soirees;
+        OverlayItem OverlayItemSoiree;
         for (Soiree so : DaoSoiree.getInstance().getLocalSoirees()) {
-            soirees = new OverlayItem(so.getLibelleCourt(),"Par "+so.getLogin(), new GeoPoint(so.getLatitude(), so.getLongitude()));
-            soirees.setMarker(getResources().getDrawable(R.drawable.location));
-            items.add(soirees);
+            soireeSel = so;
+            OverlayItemSoiree = new OverlayItem(so.getLibelleCourt(),"Par "+so.getLogin(), new GeoPoint(so.getLatitude(), so.getLongitude()));
+            OverlayItemSoiree.setMarker(getResources().getDrawable(R.drawable.location));
+            items.add(OverlayItemSoiree);
             ItemizedIconOverlay<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(this, items, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>(){
                 @Override
                 public boolean onItemSingleTapUp(int index, OverlayItem item) {
@@ -72,6 +81,10 @@ public class ToutesSoireeMap extends Activity {
                 }
                 @Override
                 public boolean onItemLongPress(int index, OverlayItem item) {
+                    Intent intent = new Intent(getApplicationContext(), InfoSoiree.class);
+                    intent.putExtra("index",index);
+                    intent.putExtra("so", so);
+                    startActivityForResult(intent, 2);
                     return false;
                 }
             });
@@ -121,6 +134,30 @@ public class ToutesSoireeMap extends Activity {
                     this,
                     permissionsToRequest.toArray(new String[0]),
                     REQUEST_PERMISSIONS_REQUEST_CODE);
+        }
+    }
+
+    private void getSoiree(){
+        DaoSoiree.getInstance().getSoirees(new DelegateAsyncTask() {
+            @Override
+            public void whenWSIsTerminated(Object result) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 2) {
+             if (resultCode == 4){
+                int i = data.getIntExtra("index", 0);
+                soirees.remove(i);
+                items.remove(i);
+                positionnerSoirees();
+            }else{
+            }
         }
     }
 }

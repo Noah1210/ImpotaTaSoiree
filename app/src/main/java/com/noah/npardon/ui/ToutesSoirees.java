@@ -104,6 +104,7 @@ public class ToutesSoirees extends Activity {
                 soirees.remove(i);
                 getSoiree();
             }else{
+
             }
         }
     }

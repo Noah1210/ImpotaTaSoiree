@@ -25,10 +25,6 @@ public class Connexion extends Activity {
 
         inputLogin = findViewById(R.id.txLogin);
         inputPassword = findViewById(R.id.txPassword);
-        if(inputLogin.getText().toString().matches("")){
-            inputLogin.setText("noah.pardon");
-            inputPassword.setText("12345");
-        }
 
         btnInscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +83,8 @@ public class Connexion extends Activity {
                 inputLogin.setText(me.getLogin());
                 inputPassword.setText(me.getPassword());
             } else if(resultCode == 4){
-                inputLogin.setText(".");
-                inputPassword.setText(".");
+                inputLogin.setText("");
+                inputPassword.setText("");
             }else{
 
             }

@@ -85,6 +85,8 @@ public class InfoSoiree extends Activity {
         });
 
         ((Button) findViewById(R.id.bAnnuler)).setOnClickListener(v -> {
+            Intent returnIntent = new Intent();
+            setResult(10, returnIntent);
             finish();
         });
 
